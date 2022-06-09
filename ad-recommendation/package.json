@@ -1,0 +1,26 @@
+{
+  "name": "ad-recommendation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node serve.js",
+    "build": "node build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "devDependencies": {
+    "@craftamap/esbuild-plugin-html": "^0.4.0",
+    "@types/react": "^18.0.12",
+    "@types/react-dom": "^18.0.5",
+    "esbuild": "^0.14.43",
+    "esbuild-plugin-purgecss": "^0.0.6",
+    "esbuild-plugin-sass": "^1.0.1",
+    "typescript": "^4.7.3"
+  }
+}
