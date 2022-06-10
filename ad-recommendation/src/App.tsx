@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useReducer } from 'react'
 import AdPane from './components/AdPane'
 import User from './components/User'
+import CodePane from './components/CodePane'
+import { defaultState, UserContext, userReducer } from './hooks';
 
 import "./App.scss";
 
+
 export default function App() {
-    return <>
+    const [{ user }, dispatch] = useReducer(userReducer, defaultState);
+
+    return <UserContext.Provider value={{ user, dispatch }}>
+        <CodePane />
         <User />
-        <AdPane content='这是一个广告哦' />
-    </>
+        <AdPane />
+    </UserContext.Provider>
 }

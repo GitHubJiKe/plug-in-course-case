@@ -2,6 +2,8 @@ const path = require("path")
 const sassPlugin = require('esbuild-plugin-sass')
 const { htmlPlugin } = require('@craftamap/esbuild-plugin-html');
 const purgecssPlugin = require("esbuild-plugin-purgecss")
+const pkg = require("./package.json")
+const fs = require("fs")
 
 module.exports = {
     entryPoints: [path.resolve(__dirname, "./src/index.tsx")],
@@ -20,21 +22,28 @@ module.exports = {
             {
                 entryPoints: [path.resolve(__dirname, "./src/index.tsx")],
                 filename: "index.html",
-                title: "esbuild react demo",
-                htmlTemplate: `<!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <link rel="stylesheet" href="/index.css">
-                </head>
-                <body>
-                    <div id="root">
-                    </div>
-                    <script src="/index.js"></script>
-                </body>
-                </html>`
+                title: pkg.name,
+                htmlTemplate: fs.readFileSync(path.resolve(__dirname, './index.html'))
             }
         ]
-    })]
+    }), MyHtmlPlugin({ filepath: path.resolve(__dirname, './index.html'), filename: 'index.html' })]
+}
+
+function MyHtmlPlugin({ filepath, filename }) {
+    return {
+        name: 'myhtml',
+        setup(build) {
+            build.onStart(() => {
+                const htmlContent = fs.readFileSync(filepath)
+                const distDir = build.initialOptions.outdir
+                const _file_path_ = `${build.initialOptions.outdir}/${filename}`;
+                try {
+                    fs.accessSync(distDir)
+                } catch (error) {
+                    fs.mkdirSync(build.initialOptions.outdir)
+                }
+                fs.writeFileSync(_file_path_, htmlContent)
+            })
+        }
+    }
 }

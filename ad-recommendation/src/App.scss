@@ -8,6 +8,68 @@ body {
     height  : 100%;
 }
 
-#root {
-    padding: 12px;
+$sizes:0px,
+4px,
+8px,
+10px,
+12px,
+24px;
+
+$directions: left,
+right,
+top,
+bottom;
+
+$colors:("red":red, "blue":blue, "yellow":yellow, "green":green, 'black':#000, 'white':#fff);
+
+$displays:block,
+inline-block,
+grid,
+flex,
+table;
+
+@each $size in $sizes {
+    .padding-#{$size} {
+        padding: $size;
+    }
+
+    .border-radius-#{$size} {
+        border-radius: $size;
+    }
+
+    .font-#{$size} {
+        font-size: $size;
+    }
+
+    @each $direction in $directions {
+        .padding-#{$direction}-#{$size} {
+            padding-#{$direction}: $size;
+        }
+
+        .margin-#{$direction}-#{$size} {
+            margin-#{$direction}: $size;
+        }
+    }
+
+}
+
+@each $name,
+$color in $colors {
+    .border-#{$name} {
+        border: 1px solid $color;
+    }
+
+    .text-#{$name} {
+        color: $color;
+    }
+
+    .bg-#{$name} {
+        background-color: $color;
+    }
+}
+
+@each $display in $displays {
+    .#{$display} {
+        display: $display;
+    }
 }
