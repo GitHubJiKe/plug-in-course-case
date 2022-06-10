@@ -1,18 +1,18 @@
-export type TGender = 'male' | 'female';
+export type TGender = "male" | "female";
 export type TAge = "teenager" | "youth" | "middleAged" | "older";
 export type TActionValue = TGender | TAge;
 export type TUserReducerAction = {
     type: TActionType;
     value: TActionValue;
-}
-export type TUserInfo = { gender: TGender; ageGroup: TAge; }
+};
+export type TUserInfo = { gender: TGender; ageGroup: TAge };
 export type TActionType = keyof TUserInfo;
 export type TSelectEvent<T> = {
     target: {
-        [x: string]: any; value: string | ((prevState: T) => T);
-    }
+        [x: string]: any;
+        value: string | ((prevState: T) => T);
+    };
 };
-
 
 export interface IAdContentPlugin {
     name: string;
@@ -25,5 +25,5 @@ export interface IAdPluginCenter {
     plugins: Map<string, IAdContentPlugin>;
     load: (plugins: IAdContentPlugin[] | IAdContentPlugin) => void;
     unload: (name: string) => void;
-    find: (userOrName: string | TUserInfo) => IAdContentPlugin | undefined;
+    find: (user: TUserInfo) => IAdContentPlugin;
 }
