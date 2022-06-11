@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "src/hooks";
-// import { adPluginCenter, plugins } from "src/plugin";
-import { TAge, TGender, TUserInfo } from "src/types";
+import { adPluginCenter, plugins } from "src/plugin";
+import { TAgeGroup, TGender, TUserInfo } from "src/types";
 
 function genAd(user: TUserInfo) {
     if (user.gender === "male") {
@@ -35,7 +35,7 @@ function genAd(user: TUserInfo) {
     return "";
 }
 
-// const adContentMap: Record<`${TGender}-${TAge}`, string> = {
+// const adContentMap: Record<`${TGender}-${TAgeGroup}`, string> = {
 //     "female-middleAged": "1",
 //     "female-teenager": "2",
 //     "female-older": "3",
@@ -46,34 +46,32 @@ function genAd(user: TUserInfo) {
 //     "male-middleAged": "8",
 // };
 
-export default function AdPane() {
-    const { user } = useContext(UserContext);
-    const [adContent, setAdContent] = useState("");
-
-    useEffect(() => setAdContent(genAd(user)), [user.ageGroup, user.gender]);
-
-    return (
-        <div className="border-red padding-24px border-radius-8px bg-green text-white">
-            <h3>广告位</h3>
-            <article>
-                {adContent}
-                {/* {adContentMap[`${user.gender}-${user.ageGroup}`]} */}
-            </article>
-        </div>
-    );
-}
-
 // export default function AdPane() {
 //     const { user } = useContext(UserContext);
+//     const [adContent, setAdContent] = useState("");
 
-//     useEffect(() => {
-//         adPluginCenter.load(plugins);
-//     }, []);
+//     useEffect(() => setAdContent(genAd(user)), [user.ageGroup, user.gender]);
 
 //     return (
 //         <div className="border-red padding-24px border-radius-8px bg-green text-white">
-//             <h3>Advertising Space</h3>
-//             {adPluginCenter.find(user).content(user) as string}
+//             <h3>广告位</h3>
+//             <article>
+//                 {adContent}
+//                 {/* {adContentMap[`${user.gender}-${user.ageGroup}`]} */}
+//             </article>
 //         </div>
 //     );
 // }
+
+export default function AdPane() {
+    const { user } = useContext(UserContext);
+
+    adPluginCenter.load(plugins);
+
+    return (
+        <div className="border-red padding-24px border-radius-8px bg-green text-white">
+            <h3>Advertising Space</h3>
+            {adPluginCenter.find(user).content(user) as string}
+        </div>
+    );
+}

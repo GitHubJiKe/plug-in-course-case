@@ -1,11 +1,11 @@
 export type TGender = "male" | "female";
-export type TAge = "teenager" | "youth" | "middleAged" | "older";
-export type TActionValue = TGender | TAge;
+export type TAgeGroup = "teenager" | "youth" | "middleAged" | "older";
+export type TActionValue = TGender | TAgeGroup;
 export type TUserReducerAction = {
     type: TActionType;
     value: TActionValue;
 };
-export type TUserInfo = { gender: TGender; ageGroup: TAge };
+export type TUserInfo = { gender: TGender; ageGroup: TAgeGroup; age: number };
 export type TActionType = keyof TUserInfo;
 export type TSelectEvent<T> = {
     target: {
@@ -14,9 +14,9 @@ export type TSelectEvent<T> = {
     };
 };
 
-export interface IAdContentPlugin {
+export interface IAdContentPlugin<T = Partial<TUserInfo>> {
     name: string;
-    user: TUserInfo;
+    user: T;
     is: (user: TUserInfo) => boolean;
     content: (params?: unknown) => unknown;
 }

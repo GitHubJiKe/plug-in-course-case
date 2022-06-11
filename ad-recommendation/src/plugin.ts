@@ -1,4 +1,3 @@
-import { isEqual } from "lodash-es";
 import DefaultPlugin from "./DefaultPlugin";
 import MaleTeenPlugin from "./MaleTeenPlugin";
 import { IAdContentPlugin, IAdPluginCenter } from "./types";
